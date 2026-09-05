@@ -197,7 +197,32 @@
 </div>
 
  <iframe id="myFrame" src=""></iframe>
- 
+
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const ogImageMeta = document.querySelector('meta[property="og:image"]');
+  
+  if (ogImageMeta) {
+    const imageUrl = ogImageMeta.getAttribute("content").trim();
+    const gallery = document.getElementById("serverGallery");
+
+    // ตรวจสอบว่ามี element ปลายทางอยู่จริงหรือไม่ก่อนทำงานต่อ
+    if (gallery) {
+      const totalImages = 1; 
+
+      for (let i = 0; i < totalImages; i++) {
+        const img = document.createElement("img");
+        img.src = imageUrl;
+        // ใช้ string concatenation ปกติแทน template literal เพื่อป้องกันปัญหา Syntax ในบางสภาพแวดล้อม
+        img.alt = "Server Image " + (i + 1);
+        
+        gallery.appendChild(img);
+      }
+    }
+  }
+});
+  </script>
+  
 <script>
   (function() {
     let fullPath = window.location.pathname + window.location.search;
